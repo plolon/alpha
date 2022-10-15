@@ -13,16 +13,7 @@ namespace PlatformService.Persistence.Repositories
         }
         public async Task<bool> SaveChanges()
         {
-            //TODO: Some logger logic with handle exception
-            try
-            {
-                await _dbContext.SaveChangesAsync();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return (await _dbContext.SaveChangesAsync() >= 0);
         }
 
         public async Task<IEnumerable<T>> GetAll()
