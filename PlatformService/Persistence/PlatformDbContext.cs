@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using PlatformService.Models;
 
-namespace PlatformService.Data
+namespace PlatformService.Persistence
 {
     public class PlatformDbContext : DbContext
     {

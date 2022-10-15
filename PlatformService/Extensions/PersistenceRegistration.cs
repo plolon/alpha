@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PlatformService.Data;
+using PlatformService.Persistence;
+using PlatformService.Persistence.IRepositories;
+using PlatformService.Persistence.Repositories;
 
 namespace PlatformService.Extensions
 {
@@ -13,6 +15,9 @@ namespace PlatformService.Extensions
                 options.UseInMemoryDatabase("InMem");
                 //options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString"));
             });
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IPlatformRepository, PlatformRepository>();
 
             return services;
         }
