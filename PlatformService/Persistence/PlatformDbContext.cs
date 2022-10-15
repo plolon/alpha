@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using PlatformService.Models;
+using PlatformService.Persistence.Configuration;
 
 namespace PlatformService.Persistence
 {
@@ -10,5 +12,11 @@ namespace PlatformService.Persistence
         }
 
         public DbSet<Platform> Platforms { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new PlatformConfiguration()); // only dev
+        }
     }
 }
