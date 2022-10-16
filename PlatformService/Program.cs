@@ -2,8 +2,6 @@ using PlatformService.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.ConfigurePersistence(builder.Configuration);
 builder.Services.ConfigureProfiles();
 builder.Services.AddControllers();

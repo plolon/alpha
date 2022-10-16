@@ -6,6 +6,6 @@
 
         Task<IEnumerable<T>> GetAll();
         Task<T> Get(int id);
-        Task CreatePlatform(T entity);
+        Task Add(T entity);
     }
 }

@@ -26,7 +26,7 @@ namespace PlatformService.Persistence.Repositories
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public async Task CreatePlatform(T entity)
+        public async Task Add(T entity)
         {
             await _dbContext.Set<T>().AddAsync(entity);
         }
