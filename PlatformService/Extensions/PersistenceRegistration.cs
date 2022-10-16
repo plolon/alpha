@@ -7,15 +7,19 @@ namespace PlatformService.Extensions
 {
     public static class PersistenceRegistration
     {
-        public static IServiceCollection ConfigurePersistence(this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection ConfigurePersistence(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<PlatformDbContext>(options =>
             {
-                options.UseInMemoryDatabase("InMem");
-                //options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString"));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString"));
             });
+            services.AddRepositories();
 
+            return services;
+        }
+
+        private static IServiceCollection AddRepositories(this IServiceCollection services)
+        {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IPlatformRepository, PlatformRepository>();
 
