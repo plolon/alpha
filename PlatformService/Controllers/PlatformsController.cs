@@ -5,6 +5,7 @@ using PlatformService.Persistence.IRepositories;
 
 namespace PlatformService.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
     public class PlatformsController :ControllerBase
     {
@@ -18,6 +19,7 @@ namespace PlatformService.Controllers
         }
 
         // GET: /api/platforms
+        [HttpGet]
         public async Task<IEnumerable<PlatformReadDto>> Get()
         {
             var platforms = await _platformRepository.GetAll();

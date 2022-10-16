@@ -7,7 +7,7 @@ namespace PlatformService.Persistence
 {
     public class PlatformDbContext : DbContext
     {
-        public PlatformDbContext(DbContextOptions<PlatformDbContext> options)
+        public PlatformDbContext(DbContextOptions<PlatformDbContext> options) :base(options)
         {
         }
 
@@ -15,7 +15,6 @@ namespace PlatformService.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new PlatformConfiguration()); // only dev
         }
     }
