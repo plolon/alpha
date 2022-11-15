@@ -3,6 +3,7 @@ using PlatformService.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigurePersistence(builder.Configuration);
+builder.Services.ConfigureHttpClient(builder.Configuration);
 builder.Services.ConfigureProfiles();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
