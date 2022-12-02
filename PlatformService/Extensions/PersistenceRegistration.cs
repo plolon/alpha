@@ -11,7 +11,8 @@ namespace PlatformService.Extensions
         {
             services.AddDbContext<PlatformDbContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString"));
+                //options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString"));
+                options.UseInMemoryDatabase("InMemory");
             });
             services.AddRepositories();
 

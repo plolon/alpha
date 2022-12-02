@@ -1,4 +1,5 @@
 using PlatformService.Extensions;
+using PlatformService.Persistence.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,5 +25,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.PreparePlatform();
 
 app.Run();

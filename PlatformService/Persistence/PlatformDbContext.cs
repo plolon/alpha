@@ -15,7 +15,7 @@ namespace PlatformService.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new PlatformConfiguration()); // only dev
+            //modelBuilder.ApplyConfiguration(new PlatformConfiguration()); // only dev
         }
     }
 }
