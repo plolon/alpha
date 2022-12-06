@@ -18,6 +18,8 @@ namespace PlatformService.Persistence.Configuration
 
         private static void SeedData(PlatformDbContext context)
         {
+            
+
             if (!context.Platforms.Any())
             {
                 Console.WriteLine("--> Seeding Data");
