@@ -26,6 +26,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.PreparePlatform();
+app.PreparePlatform(app.Environment.IsProduction());
 
 app.Run();
