@@ -17,11 +17,12 @@ namespace PlatformService.Persistence.Configuration
 
         private static void SeedData(PlatformDbContext context, bool isProd)
         {
-            if(isProd){
+            if (isProd)
+            {
                 Console.WriteLine("--> Applying migrations...");
                 try
                 {
-                context.Database.Migrate();
+                    context.Database.Migrate();
                 }
                 catch (Exception ex)
                 {
