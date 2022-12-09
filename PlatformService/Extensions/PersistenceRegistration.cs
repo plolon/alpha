@@ -7,15 +7,23 @@ namespace PlatformService.Extensions
 {
     public static class PersistenceRegistration
     {
-        public static IServiceCollection ConfigurePersistence(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigurePersistence(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
         {
+
             services.AddDbContext<PlatformDbContext>(options =>
             {
-                //options.UseSqlServer(configuration.GetConnectionString("DefaultConnectionString"));
-                options.UseInMemoryDatabase("InMemory");
+                if (environment.IsProduction())
+                {
+                    System.Console.WriteLine("--> Using SqlServer DataBase");
+                    options.UseSqlServer(configuration.GetConnectionString("PlatformsConn"));
+                }
+                else
+                {
+                    System.Console.WriteLine("--> Using InMemory DataBase");
+                    options.UseInMemoryDatabase("InMemory");
+                }
             });
             services.AddRepositories();
-
             return services;
         }
 
@@ -23,7 +31,6 @@ namespace PlatformService.Extensions
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IPlatformRepository, PlatformRepository>();
-
             return services;
         }
     }

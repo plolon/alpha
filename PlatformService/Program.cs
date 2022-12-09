@@ -3,7 +3,7 @@ using PlatformService.Persistence.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigurePersistence(builder.Configuration);
+builder.Services.ConfigurePersistence(builder.Configuration, builder.Environment);
 builder.Services.ConfigureHttpClient(builder.Configuration);
 builder.Services.ConfigureProfiles();
 builder.Services.AddControllers();
@@ -26,6 +26,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.PreparePlatform();
+app.PreparePlatform(app.Environment.IsProduction());
 
 app.Run();
