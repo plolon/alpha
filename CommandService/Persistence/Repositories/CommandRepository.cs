@@ -28,7 +28,11 @@ namespace CommandService.Persistence.Repositories
 
         public async Task CreateCommand(int platformId, Command command)
         {
-            _dbContext.Commands.AddAsync(command);
+            if(command == null)
+                throw new ArgumentNullException(nameof(command));
+
+            command.PlatformId = platformId;
+            await _dbContext.Commands.AddAsync(command);
         }
     }
 }
