@@ -4,7 +4,7 @@
     {
         Task<bool> SaveChanges();
 
-        Task<bool> Exists(int id);
+        bool Exists(int id);
 
         Task<IEnumerable<T>> GetAll();
         Task<T> Get(int id);

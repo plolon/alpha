@@ -16,9 +16,9 @@ namespace CommandService.Persistence.Repositories
             return (await _dbContext.SaveChangesAsync() >= 0);
         }
 
-        public async Task<bool> Exists(int id)
+        public bool Exists(int id)
         {
-            return await _dbContext.Set<T>().FindAsync(id) != null;
+            return _dbContext.Set<T>().Find(id) != null;
         }
 
         public async Task<IEnumerable<T>> GetAll()
