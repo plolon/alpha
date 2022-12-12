@@ -13,6 +13,9 @@ namespace PlatformService.Profiles
 
             // domain -> dto
             CreateMap<Platform, PlatformReadDto>();
+
+            //dto -> dto
+            CreateMap<PlatformReadDto, PlatformPublishedDto>();
         }
     }
 }
