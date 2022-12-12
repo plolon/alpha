@@ -10,6 +10,8 @@ namespace CommandService.Profiles
         {
             // dto -> domain
             CreateMap<CommandCreateDto, Command>();
+            CreateMap<PlatformPublishedDto, Platform>()
+                .ForMember(dest => dest.ExternalId, opt => opt.MapFrom(src => src.Id));
 
             // domain -> dto
             CreateMap<Platform, PlatformReadDto>();

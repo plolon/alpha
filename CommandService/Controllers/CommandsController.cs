@@ -23,13 +23,6 @@ namespace CommandService.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CommandReadDto>>> GetAllCommandsForPlatform(int platformId)
         {
-            await _platformRepository.Add(new Platform{
-                Id = 1,
-                Name = "test",
-                ExternalId = 1
-            });
-            await _platformRepository.SaveChanges();
-
             System.Console.WriteLine($"--> GetCommandsForPlatform: {platformId}");
             if (!_platformRepository.Exists(platformId))
                 return NotFound();
