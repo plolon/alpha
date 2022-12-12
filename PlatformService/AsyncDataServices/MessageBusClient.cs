@@ -1,4 +1,5 @@
-using Microsoft.Extensions.Options;
+using System.Text;
+using System.Text.Json;
 using PlatformService.Dtos;
 using RabbitMQ.Client;
 
@@ -28,18 +29,47 @@ namespace PlatformService.AsyncDataServices
             }
             catch (Exception ex)
             {
-                System.Console.WriteLine($"--> Could not connect to the Message Bus: {ex.Message}");
+                Console.WriteLine($"--> Could not connect to the Message Bus: {ex.Message}");
             }
         }
 
-        public Task PublishNewPlatform(PlatformPublishedDto platformPublishedDto)
+        public void PublishNewPlatform(PlatformPublishedDto platformPublishedDto)
         {
-            throw new NotImplementedException();
+            var message = JsonSerializer.Serialize(platformPublishedDto);
+
+            if (!_connection.IsOpen)
+            {
+                Console.WriteLine("--> RabbitMQ Connection Closed");
+                return;
+            }
+            Console.WriteLine("--> RabbitMQ Connection Open");
+            SendMessage(message);
+        }
+
+        private void SendMessage(string message)
+        {
+            var body = Encoding.UTF8.GetBytes(message);
+            _channel.BasicPublish(
+                exchange: "trigger",
+                routingKey: "",
+                basicProperties: null,
+                body: body);
+            Console.WriteLine($"--> RabbitMQ Sent {message}");
+        }
+
+        public void Dispose()
+        {
+            Console.WriteLine("--> MessageBus Disposed");
+            if (_channel.IsOpen)
+            {
+                _channel.Close();
+                _connection.Close();
+            }
         }
 
         private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e)
         {
-            System.Console.WriteLine($"--> RabbitMQ connection ShutDown");
+            Console.WriteLine($"--> RabbitMQ connection ShutDown");
         }
     }
 }

@@ -4,7 +4,7 @@ namespace PlatformService.AsyncDataServices
 {
     public interface IMessageBusClient
     {
-        Task PublishNewPlatform(PlatformPublishedDto platformPublishedDto);
+        void PublishNewPlatform(PlatformPublishedDto platformPublishedDto);
     }
 
 }
