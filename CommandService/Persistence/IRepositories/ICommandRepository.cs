@@ -7,6 +7,5 @@ namespace CommandService.Persistence.IRepositories
         Task<Command> GetCommand(int platformId, int commandId);
         Task CreateCommand(int platformId, Command command);
         Task<IEnumerable<Command>> GetCommandsForPlatform(int platformId);
-        Task<bool> ExternalPlatformExists(int id);
     }
 }

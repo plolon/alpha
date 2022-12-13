@@ -34,10 +34,5 @@ namespace CommandService.Persistence.Repositories
             command.PlatformId = platformId;
             await _dbContext.Commands.AddAsync(command);
         }
-
-        public async Task<bool> ExternalPlatformExists(int id)
-        {
-            return await _dbContext.Platforms.AnyAsync(x => x.Id.Equals(id));
-        }
     }
 }
