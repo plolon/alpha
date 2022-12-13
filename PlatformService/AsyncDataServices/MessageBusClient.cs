@@ -12,7 +12,6 @@ namespace PlatformService.AsyncDataServices
 
         public MessageBusClient(IConfiguration configuration)
         {
-            configuration = configuration;
             var connectionFactory = new ConnectionFactory()
             {
                 HostName = configuration["RabbitMQHost"],
