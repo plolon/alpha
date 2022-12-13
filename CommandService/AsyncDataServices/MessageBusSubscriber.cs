@@ -1,11 +1,13 @@
+using System.Text;
 using CommandService.EventProcessing;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
 namespace CommandService.AsyncDataServices
 {
     public class MessageBusSubscriber : BackgroundService
     {
-        private readonly object _eventProcessor;
+        private readonly IEventProcessor _eventProcessor;
         private readonly IConfiguration _configuration;
         private IConnection _connection;
         private IModel _channel;
@@ -17,6 +19,8 @@ namespace CommandService.AsyncDataServices
         {
             _eventProcessor = eventProcessor;
             _configuration = configuration;
+
+            InitializeRabbitMQ();
         }
 
         private void InitializeRabbitMQ()
@@ -40,10 +44,29 @@ namespace CommandService.AsyncDataServices
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            throw new NotImplementedException();
+            stoppingToken.ThrowIfCancellationRequested();
+
+            var consumer = new EventingBasicConsumer(_channel);
+
+            consumer.Received += (ModuleHandle, ea) =>
+            {
+                Console.WriteLine("--> Event Received");
+                var body = ea.Body;
+                var notificationMessage = Encoding.UTF8.GetString(body.ToArray());
+
+                _eventProcessor.ProcessEvent(notificationMessage);
+            };
+
+            _channel.BasicConsume(
+                queue: _queueName,
+                autoAck: true,
+                consumer: consumer);
+
+            return Task.CompletedTask;
         }
 
-        private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e){
+        private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e)
+        {
             Console.WriteLine("--> Connection Shutdown");
         }
 
