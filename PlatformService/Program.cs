@@ -1,5 +1,6 @@
 using PlatformService.Extensions;
 using PlatformService.Persistence.Configuration;
+using PlatformService.SyncDataServices.Grpc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,11 +21,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
+app.MapGrpcService<GrpcPlatformService>();
 app.PreparePlatform(app.Environment.IsProduction());
 
 app.Run();
