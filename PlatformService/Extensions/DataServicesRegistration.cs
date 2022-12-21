@@ -4,7 +4,7 @@ namespace PlatformService.Extensions
 {
     public static class HttpClientRegistration
     {
-        public static IServiceCollection ConfigureHttpClient(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection ConfigureDataServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
             services.AddGrpc();

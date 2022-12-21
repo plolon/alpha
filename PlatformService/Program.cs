@@ -5,7 +5,7 @@ using PlatformService.SyncDataServices.Grpc;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigurePersistence(builder.Configuration, builder.Environment);
-builder.Services.ConfigureHttpClient(builder.Configuration);
+builder.Services.ConfigureDataServices(builder.Configuration);
 builder.Services.ConfigureMessageBus();
 builder.Services.ConfigureProfiles();
 builder.Services.AddControllers();
